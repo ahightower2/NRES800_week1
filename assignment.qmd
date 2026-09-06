@@ -68,6 +68,8 @@ write "No AI used."
 
 > _No AI used_
 
+quarto render assignment.qmd
+
 <!-- ─────────────────────────────────────────────────────────────────────
      GRADING HOOK — do not edit or delete this chunk.
      It saves your named objects so the automated checks can read them.
