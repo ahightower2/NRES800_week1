@@ -1,0 +1,83 @@
+---
+title: "Assignment 01: The Reproducibility Hello World"
+author: "Abbey Hightower"
+format:
+  html:
+    embed-resources: true
+    toc: true
+execute:
+  warning: false
+  message: false
+---
+
+## Setup
+
+Load the packages you need in this chunk. You need `tidyverse` and `here`.
+The penguin data comes from `palmerpenguins`.
+
+```{r setup}
+library(tidyverse)
+library(here)
+
+# Load the penguins data WITHOUT attaching the whole package:
+data(penguins, package = "palmerpenguins")
+```
+
+## Data provenance
+
+Write 2-3 sentences: what is this dataset, where does it come from, and why do
+we load it with `data()` instead of reading a CSV you placed by hand?
+
+> _This data was downloaded as a library R package online that contains much more data than a regular CSV file. This data needed to be installed and loaded into the code. By using the 'data()' function the user only loads the necessary data for analysis and not the entire library package._
+
+## The plot
+
+Build a scatterplot of **bill length** (x) vs **bill depth** (y), colored by
+**species**. Save the plot to the object named `penguin_plot` exactly as shown.
+The grader looks for that object name.
+
+```{r plot}
+penguin_plot <- penguins |>
+  ggplot(aes(
+    x = bill_length_mm,          # TODO: bill length column
+    y = bill_depth_mm,          # TODO: bill depth column
+    color = species      # TODO: map species INSIDE aes()
+  )) +
+  geom_point() +
+  labs(
+    title = "Bill Length and Depth Relationship of Three Penguin Species",    # TODO: a clear title
+    x = "Bill Length (mm)",
+    y = "Bill Depth (mm)"
+  )
+
+penguin_plot
+```
+
+## Interpretation
+
+Write 2 sentences describing a *specific* pattern you see (name a direction or a
+species difference). Not "the plot shows data."
+
+> _Overall the penguins bill depth and length have a positive relationship with each other since they both increase together. Between all three species Gentoo has the narrowest and longest bill while Adelie has the deepest and shortest type of bill._ 
+
+
+## Methods note (AI use)
+
+If you used AI to troubleshoot, say what you asked and what you learned. If not,
+write "No AI used."
+
+> _No AI used_
+
+<!-- ─────────────────────────────────────────────────────────────────────
+     GRADING HOOK — do not edit or delete this chunk.
+     It saves your named objects so the automated checks can read them.
+     ───────────────────────────────────────────────────────────────────── -->
+
+```{r grading-hook, echo=FALSE}
+hook_objects <- c("penguin_plot")
+present <- hook_objects[vapply(hook_objects, exists, logical(1))]
+if (length(present) > 0) {
+  dir.create(here("tests"), showWarnings = FALSE)
+  saveRDS(mget(present, inherits = TRUE), here("tests", "_objects.rds"))
+}
+```
